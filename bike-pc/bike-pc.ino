@@ -4,6 +4,7 @@
 #include <gfxfont.h>
 #include <SPI.h>
 #include <Adafruit_ILI9341.h>
+#include "Screens.h"
 
 // For the Adafruit shield, these are the default.
 #define TFT_DC 9
@@ -13,71 +14,6 @@
 Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
 // If using the breakout, change pins as desired
 //Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_MOSI, TFT_CLK, TFT_RST, TFT_MISO);
-
-class IScreen {
-  public:
-    virtual int loop() = 0;
-  protected:
-    int processKeys() {
-      //TODO: read buttons & may be touch, if it is on
-      int result = 0;
-      if (Serial.available() > 0) {
-        // read the incoming byte:
-        result = Serial.read();
-      }
-      return result;
-    }
-};
-
-class SleepModeScreen : public IScreen {
-  public:
-    int loop() {
-      //TODO: update time, draw current total distance, current dist if riding
-      //if any button pressed return 1 as signal to awake
-      int result = 0;
-      int keyPressed = processKeys();
-      if (keyPressed > 0) {
-        result = 1;
-      }
-      return result;
-    }
-};
-
-class MainScreen : public IScreen {
-  public:
-    int loop() {
-      //TODO
-      Serial.println("loop MainScreen");
-      return 0;
-    }
-};
-
-class SettingsScreen : public IScreen {
-  public:
-    int loop() {
-      //TODO
-      Serial.println("loop SettingsScreen");
-      return 0;
-    }
-};
-
-class NavigationScreen : public IScreen {
-  public:
-    int loop() {
-      //TODO
-      Serial.println("loop NavigationScreen");
-      return 0;
-    }
-};
-
-class RouteScreen : public IScreen {
-  public:
-    int loop() {
-      //TODO
-      Serial.println("loop RouteScreen");
-      return 0;
-    }
-};
 
 SleepModeScreen sleepModeScreen;
 MainScreen mainScreen;
